@@ -5,23 +5,15 @@ import datetime as _dt
 import sqlalchemy.orm as _orm
 import passlib.hash as _hash
 
-import database as _database, models as _models, schemas as _schemas
+from app.models import users as _models
+from app.schemas import users as _schemas
+from app.database import get_db
 
-oauth2schema = _security.OAuth2PasswordBearer(tokenUrl="/api/token")
+oauth2schema = _security.OAuth2PasswordBearer(tokenUrl="/auth/token")
 
 JWT_SECRET = "myjwtsecret"
 
 
-def create_database():
-    return _database.Base.metadata.create_all(bind=_database.engine)
-
-
-def get_db():
-    db = _database.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 async def get_user_by_email(email: str, db: _orm.Session):
