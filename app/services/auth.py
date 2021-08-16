@@ -5,16 +5,13 @@ import datetime as _dt
 import sqlalchemy.orm as _orm
 import passlib.hash as _hash
 
-from app.models import users as _models
-from app.schemas import users as _schemas
+from app.models import auth as _models
+from app.schemas import auth as _schemas
 from app.database import get_db
 
 oauth2schema = _security.OAuth2PasswordBearer(tokenUrl="/auth/token")
 
 JWT_SECRET = "myjwtsecret"
-
-
-
 
 async def get_user_by_email(email: str, db: _orm.Session):
     return db.query(_models.User).filter(_models.User.email == email).first()
@@ -22,7 +19,7 @@ async def get_user_by_email(email: str, db: _orm.Session):
 
 async def create_user(user: _schemas.UserCreate, db: _orm.Session):
     user_obj = _models.User(
-        email=user.email, hashed_password=_hash.bcrypt.hash(user.hashed_password)
+        email=user.email, password=_hash.bcrypt.hash(user.password)
     )
     db.add(user_obj)
     db.commit()

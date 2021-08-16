@@ -2,12 +2,15 @@ import fastapi as _fastapi
 import sqlalchemy.orm as _orm
 
 from typing import List
-from app.schemas import users as _schemas
-from app.services import users as _services
+from app.schemas import auth as _schemas
+from app.services import auth as _services
 from app.routers import auth, users
+from app.database import create_database
 
 
 app = _fastapi.FastAPI()
+
+create_database()
 
 app.include_router(auth.router)
 app.include_router(users.router)
@@ -61,6 +64,6 @@ app.include_router(users.router)
 #     return {"message", "Successfully Updated"}
 
 
-@app.get("/api")
-async def root():
-    return {"message": "Awesome Leads Manager"}
+# @app.get("/api")
+# async def root():
+#     return {"message": "Awesome Leads Manager"}
