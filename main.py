@@ -2,14 +2,6 @@ import fastapi as _fastapi
 import sqlalchemy.orm as _orm
 from os import path
 from typing import List
-# from .schemas import auth as _schemas
-# from .services import auth as _services
-# from .routers import auth, users
-# from .database import create_database
-
-
-# from .routers.auth import router as auth_router
-# from .routers.users import router as users_router
 
 import api.routers.auth as _auth
 import api.routers.users as _users
@@ -17,6 +9,7 @@ import api.database as _database
 
 
 app = _fastapi.FastAPI()
+
 
 _database.create_database()
 
