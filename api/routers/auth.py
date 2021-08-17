@@ -3,8 +3,8 @@ import fastapi.security as _security
 import sqlalchemy.orm as _orm
 
 from fastapi import APIRouter, status
-from app.services import auth as _services
-from app.schemas import auth as _schemas
+from api.services import auth as _services
+from api.schemas import auth as _schemas
 from .. import database as _database
 
 

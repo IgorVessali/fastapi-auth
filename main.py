@@ -1,21 +1,32 @@
 import fastapi as _fastapi
 import sqlalchemy.orm as _orm
-
+from os import path
 from typing import List
-from app.schemas import auth as _schemas
-from app.services import auth as _services
-from app.routers import auth, users
-from app.database import create_database
+# from .schemas import auth as _schemas
+# from .services import auth as _services
+# from .routers import auth, users
+# from .database import create_database
+
+
+# from .routers.auth import router as auth_router
+# from .routers.users import router as users_router
+
+import api.routers.auth as _auth
+import api.routers.users as _users
+import api.database as _database
 
 
 app = _fastapi.FastAPI()
 
-create_database()
-
-app.include_router(auth.router)
-app.include_router(users.router)
+_database.create_database()
 
 
+app.include_router(_auth.router)
+app.include_router(_users.router)
+
+# if __name__ == '__main__':
+#     import sys
+#     sys.path.append(path.join(path.dirname(__file__), '..'))
 
 # @app.post("/api/leads", response_model=_schemas.Lead)
 # async def create_lead(
